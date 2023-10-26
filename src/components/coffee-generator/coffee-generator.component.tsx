@@ -110,7 +110,10 @@ function CoffeeGenerator() {
         </div>
         
         <div className='w-full mt-4 sm:mt-0 sm:w-[50%] flex justify-end'>
+            <div>
+            <p className='text-darkBlue text-xl self-start mb-4 font-bold'>Preview:</p>
             <CoffeeCard selectedCoffee={selectedCoffee} width={width} />
+            </div>
         </div>
 
         {modal && <CopyModal selectedCoffee={selectedCoffee} width={width} setModal={setModal} />}
