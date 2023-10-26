@@ -21,13 +21,13 @@ export interface CoffeeContextType {
 export const CoffeeContext = createContext<CoffeeContextType>({
   hotCoffee: [],
   icedCoffee: [],
-  isLoading: false,
+  isLoading: true,
 });
 
 export const CoffeeProvider = ({ children }: { children: ReactNode}) => {
   const [hotCoffee, setHotCoffee] = useState([]);
   const [icedCoffee, setIcedCoffee] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchCoffee() {
