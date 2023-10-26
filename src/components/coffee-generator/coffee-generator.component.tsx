@@ -5,6 +5,7 @@ import CoffeeCard from '../coffee-card/coffee-card.component';
 import { CoffeeContext, ICoffee } from '../../contexts/coffee.context';
 import Button from '../button/button.component';
 import RadioInput from '../../radio-input/radio-input.component';
+import CopyModal from '../copy-modal/copy-modal.component';
 
 // type CoffeeType = "hot" | "iced";
 
@@ -13,6 +14,7 @@ function CoffeeGenerator() {
     const [selectedCoffeeId, setSelectedCoffeeId] = useState<number>(0);
     const [step, setStep] = useState<number>(1);
     const [width, setWidth] = useState<number | string>("160px");
+    const [modal, setModal] = useState<boolean>(false);
 
     const {icedCoffee, hotCoffee, isLoading} = useContext(CoffeeContext);
 
@@ -43,8 +45,8 @@ function CoffeeGenerator() {
     }
 
   return (
-    <div className='flex justify-between py-8'>
-        <div className='flex flex-col gap-4  w-[40%]'>
+    <div className='flex flex-col lg:flex-row justify-between py-8'>
+        <div className='flex flex-col gap-4 w-full sm:w-[40%]'>
             <StepCard title='Select your coffee' stepNumber={1}>
                 <div>
                     <RadioInput value="hot" disabled={step!= 1} checked={type ==="hot"} handleChange={handleCoffeeTypeChange} label="Hot coffee" name='coffeeType' />
@@ -73,12 +75,45 @@ function CoffeeGenerator() {
                 </div>
             </StepCard>
 
-            
+            <StepCard title='Choose your width' stepNumber={2}>
+                <div>
+                    <label htmlFor="title" className={`mb-3 block text-darkGray`}>
+                        Title
+                    </label>
+                    <input
+                        disabled={step != 3}
+                        id="title"
+                        type="text"
+                        onChange={(e) => setSelectedCoffee({...selectedCoffee, title: e.target.value})}
+                        value={selectedCoffee.title}
+                        className={`w-full rounded-md border py-3 px-2 text-base font-normal text-black outline-none 
+                        focus:border-darkBlue focus:shadow-md ${step != 3 ? 'border-lightGray text-textGray' : 'border-darkGray'}`}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="description" className={`mb-3 block text-darkGray`}>
+                        Description
+                    </label>
+                    <textarea
+                        disabled={step != 3}
+                        id="description"
+                        onChange={(e) => setSelectedCoffee({...selectedCoffee, description: e.target.value})}
+                        value={selectedCoffee.description}
+                        className={`w-full rounded-md border py-3 px-2 text-base font-normal text-black outline-none 
+                        focus:border-darkBlue focus:shadow-md ${step != 3 ? 'border-lightGray text-textGray' : 'border-darkGray'}`}
+                    />
+                </div>
+                <div className='w-[35%] self-end'>
+                    <Button onClick={() => setModal(true)} disabled={step != 3}>View and copy code</Button>
+                </div>
+            </StepCard>
         </div>
         
-        <div className='w-[50%] flex justify-end'>
+        <div className='w-full mt-4 sm:mt-0 sm:w-[50%] flex justify-end'>
             <CoffeeCard selectedCoffee={selectedCoffee} width={width} />
         </div>
+
+        {modal && <CopyModal selectedCoffee={selectedCoffee} width={width} setModal={setModal} />}
     </div>
   )
 }
