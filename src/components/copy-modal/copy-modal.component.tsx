@@ -1,7 +1,12 @@
 import close from '../../../public/close.svg';
 import Button from '../button/button.component';
 
-function CopyModal({selectedCoffee, width,setModal}) {
+function CopyModal({selectedCoffee, width,setModal, hasImage}) {
+
+    const widthNum = width.split('p')[0];
+    // Alternative approach
+    // console.log(document.getElementById('coffee-card')?.outerHTML)
+
 
     const ingridientsArray = selectedCoffee.ingredients.map((ingredient) => `<span class="coffee-ingredient">${ingredient}</span>`).join('');
 
@@ -9,29 +14,27 @@ function CopyModal({selectedCoffee, width,setModal}) {
         <div class="coffee-header">
             <h3>${selectedCoffee.title}</h3>
         </div>
-        <div class="coffee-content">
-            <div class="coffee-description">
-                <p>${selectedCoffee.description}</p>
-            </div>
-            <div class="coffee-image">
-                <img src="${selectedCoffee.image}" alt="Coffee Image">
-            </div>
-        </div>
-        <div class="coffee-ingredients">
-            ${ingridientsArray}
+        <div class="coffee-body">
+          <div class="coffee-content">
+              <p>${selectedCoffee.description}</p>
+              ${hasImage && '<img src="${selectedCoffee.image}" alt="Coffee Image" class="coffe-image">'}
+          </div>
+          <div class="coffee-ingredients">
+              ${ingridientsArray}
+          </div>
         </div>
 </div>`
     
     const cssString = `.coffee-container {
         width: ${width};
-        border: 2px solid #333;
+        border: 2px solid #424243;
         border-radius: 10px;
         height: 400px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
       
       .coffee-header {
-        background-color: #333;
+        background-color: #424243;
         padding: 10px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
@@ -39,31 +42,41 @@ function CopyModal({selectedCoffee, width,setModal}) {
         font-size: 20px;
         color: white;
       }
+
+      .coffee-body{
+        padding: 16px;
+        overflow-y: scroll;
+        height: 100%;
+        max-height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space between;
+      }
       
       .coffee-content {
-        padding: 10px;
-        height: 100%;
-        overflow-y: scroll;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-      }
-      
-      .coffee-description {
         flex: 1;
-        margin-bottom: 10px;
+        gap: 8px;
+        flex: direction: ${widthNum < 300 ? "column-reverse" : "row"}
       }
       
       .coffee-image img {
-        width: 30%;
-        max-height: 300px;
+        max-height: 200px;
         object-fit: cover;
+        ${widthNum < 300 ? 'width: 100%' : 'width:30%'}
       }
       
+      .coffee-ingredients{
+        display: flex;
+        gap: 4px;
+        ${widthNum< 350 && 'flex-direction: column'}
+      }
+
       .coffee-ingredients .coffee-ingredient {
-        background-color: #add8e6;
-        padding: 5px;
-        margin-right: 5px;
+        background-color: #11A0DB;
+        padding: 4px 8px;
         border-radius: 5px;
         display: inline-block;
       }`
@@ -92,7 +105,9 @@ function CopyModal({selectedCoffee, width,setModal}) {
                     <img src={close} alt="close" />
                 </div>
                 <div className='sticky bottom-0 flex justify-end'>
-                    <Button onClick={() => navigator.clipboard.writeText(htmlString + "\n\n<style>\n" + cssString +"\n</style>")} className='z-[1] cursor-pointer w-[150px]'>Copy to clipboard</Button>
+                    <div className='w-[150px]'>
+                    <Button onClick={() => navigator.clipboard.writeText(htmlString + "\n\n<style>\n" + cssString +"\n</style>")} className='z-[1] cursor-pointer'>Copy to clipboard</Button>
+                    </div>
                 </div>
             </div>
         </div>

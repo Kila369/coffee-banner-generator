@@ -34,7 +34,10 @@ export const CoffeeProvider = ({ children }: { children: ReactNode}) => {
       const responseHot = await CoffeeService.getHotCoffee();
       const responseIced = await CoffeeService.getIcedCoffee();
 
-      setHotCoffee(responseHot);
+      // They added this morning coffee with nothing so it needs this filtering
+      const newHotCoffee = responseHot.filter((coffee) => coffee.title !== "nothing");
+
+      setHotCoffee(newHotCoffee);
       setIcedCoffee(responseIced);
       setIsLoading(false);
     }

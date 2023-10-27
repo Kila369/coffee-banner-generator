@@ -15,6 +15,7 @@ function CoffeeGenerator() {
     const [step, setStep] = useState<number>(1);
     const [width, setWidth] = useState<number | string>("160px");
     const [modal, setModal] = useState<boolean>(false);
+    const [hasImage, setHasImage] = useState<boolean>(true);
 
     const {icedCoffee, hotCoffee, isLoading} = useContext(CoffeeContext);
 
@@ -44,6 +45,14 @@ function CoffeeGenerator() {
         setSelectedCoffeeId(0);
     }
 
+    const handleReset = () => {
+        setSelectedCoffeeId(0);
+        setStep(1);
+        setWidth("160px");
+        setType("hot");
+        setHasImage(true);
+    }
+
   return (
     <div className='flex flex-col lg:flex-row justify-between py-8'>
         <div className='flex flex-col gap-4 w-full sm:w-[40%]'>
@@ -68,14 +77,29 @@ function CoffeeGenerator() {
                     <RadioInput value={"160px"} disabled={step!= 2} checked={width == "160px"} handleChange={setWidth} label="160px" name='width' />
                     <RadioInput value={"300px"} disabled={step!= 2} checked={width == "300px"} handleChange={setWidth} label="300px" name='width' />
                     <RadioInput value="100%" disabled={step!= 2} checked={width == "100%"} handleChange={setWidth} label="Full width" name='width' />
-                    <RadioInput value={"350px"} disabled={step!= 2} checked={width == "350px"} handleChange={setWidth} label="px" name='width' labelType='input' />
+                    <RadioInput value={"350px"} disabled={step!= 2} checked={width == "350px"} handleChange={setWidth} label="custom" width={width} name='width' labelType='input' />
+                </div>
+                <div className='flex gap-1 items-center'>
+                    <input
+                        disabled={step != 2}
+                        id="hasImage"
+                        type="checkbox"
+                        name="scales" 
+                        checked={hasImage}
+                        onChange={() => setHasImage(!hasImage)}
+                        // className={`w-full rounded-md border py-3 px-2 text-base font-normal text-black outline-none 
+                        // focus:border-darkBlue focus:shadow-md ${step != 3 ? 'border-lightGray text-textGray' : 'border-darkGray'}`}
+                    />
+                    <label htmlFor="hasImage" className={`mb-3 block text-darkGray my-2`}>
+                        Has Image
+                    </label>
                 </div>
                 <div className='w-[30%] self-end'>
                     <Button onClick={() => setStep(3)} disabled={step != 2}>Next Step</Button>
                 </div>
             </StepCard>
 
-            <StepCard title='Choose your width' stepNumber={2}>
+            <StepCard title='Customize title and description' stepNumber={3}>
                 <div>
                     <label htmlFor="title" className={`mb-3 block text-darkGray`}>
                         Title
@@ -103,17 +127,22 @@ function CoffeeGenerator() {
                         focus:border-darkBlue focus:shadow-md ${step != 3 ? 'border-lightGray text-textGray' : 'border-darkGray'}`}
                     />
                 </div>
-                <div className='w-[35%] self-end'>
-                    <Button onClick={() => setModal(true)} disabled={step != 3}>View and copy code</Button>
+                <div className='w-full flex justify-between self-end'>
+                    <div>
+                        <Button onClick={() => handleReset()} disabled={step != 3} inverted>Start Over</Button>
+                    </div>
+                    <div>
+                        <Button onClick={() => setModal(true)} disabled={step != 3}>View and copy code</Button>
+                    </div>
                 </div>
             </StepCard>
         </div>
         
         <div className='w-full mt-4 sm:mt-0 sm:w-[50%] flex justify-end'>
-            <CoffeeCard selectedCoffee={selectedCoffee} width={width} />
+            <CoffeeCard selectedCoffee={selectedCoffee} width={width} hasImage={hasImage} />
         </div>
 
-        {modal && <CopyModal selectedCoffee={selectedCoffee} width={width} setModal={setModal} />}
+        {modal && <CopyModal selectedCoffee={selectedCoffee} width={width} setModal={setModal} hasImage={hasImage} />}
     </div>
   )
 }

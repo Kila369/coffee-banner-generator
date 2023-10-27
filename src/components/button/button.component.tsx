@@ -6,13 +6,14 @@ interface ButtonProps {
   disabled?: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
   className?: string;
+  inverted?: boolean;
 }
 
-const Button = ({ children, type, disabled, onClick, className }: ButtonProps) => {
+const Button = ({ children, type, disabled, onClick, className, inverted=false }: ButtonProps) => {
   return (
     <button
-      className={`${disabled ? 'bg-[#a9a9a9]' : 'bg-darkBlue'} 
-      hover:shadow-form rounded-[4px] w-full flex justify-center  py-2 px-2 text-center text-base font-semibold text-white outline-none ${className}`}
+      className={`${disabled ? 'bg-[#a9a9a9] text-white' : inverted ? 'bg-white text-black' : 'bg-darkBlue text-white'} 
+      hover:shadow-form rounded-[4px] w-full flex justify-center  py-2 px-2 text-center text-base font-semibold outline-none ${className}`}
       type={type}
       onClick={onClick}
       disabled={disabled}>
