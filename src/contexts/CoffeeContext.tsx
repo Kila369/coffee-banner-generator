@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 
-import { CoffeeService } from "../services/CoffeeService";
+import { coffeeService } from "../services/coffeeService";
 
 export interface ICoffee {
   title: string;
@@ -10,15 +10,13 @@ export interface ICoffee {
   ingredients: [];
 }
 
-
-export interface CoffeeContextType {
+export interface ICoffeeType {
   hotCoffee: ICoffee[];
   icedCoffee: ICoffee[];
   isLoading: boolean;
 }
 
-
-export const CoffeeContext = createContext<CoffeeContextType>({
+export const CoffeeContext = createContext<ICoffeeType>({
   hotCoffee: [],
   icedCoffee: [],
   isLoading: true,
@@ -31,11 +29,11 @@ export const CoffeeProvider = ({ children }: { children: ReactNode}) => {
 
   useEffect(() => {
     async function fetchCoffee() {
-      const responseHot = await CoffeeService.getHotCoffee();
-      const responseIced = await CoffeeService.getIcedCoffee();
+      const responseHot = await coffeeService.getHotCoffee();
+      const responseIced = await coffeeService.getIcedCoffee();
 
       // They added this morning coffee with nothing so it needs this filtering
-      const newHotCoffee = responseHot.filter((coffee) => coffee.title !== "nothing");
+      const newHotCoffee = responseHot.filter((coffee: ICoffee) => coffee.title !== "nothing");
 
       setHotCoffee(newHotCoffee);
       setIcedCoffee(responseIced);

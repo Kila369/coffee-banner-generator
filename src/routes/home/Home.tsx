@@ -1,4 +1,4 @@
-import CoffeeGenerator from '../../components/coffee-generator/coffee-generator.component'
+import CoffeeGenerator from '../../components/coffee-generator/CoffeeGenerator'
 
 function Home() {
   return (

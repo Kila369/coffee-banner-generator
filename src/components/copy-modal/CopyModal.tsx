@@ -1,5 +1,5 @@
 import close from '../../../public/close.svg';
-import Button from '../button/button.component';
+import Button from '../button/Button';
 
 function CopyModal({selectedCoffee, width,setModal, hasImage}) {
 
@@ -17,7 +17,7 @@ function CopyModal({selectedCoffee, width,setModal, hasImage}) {
         <div class="coffee-body">
           <div class="coffee-content">
               <p>${selectedCoffee.description}</p>
-              ${hasImage && '<img src="${selectedCoffee.image}" alt="Coffee Image" class="coffe-image">'}
+              ${hasImage && `<img src="${selectedCoffee.image}" alt="Coffee Image" class="coffe-image">`}
           </div>
           <div class="coffee-ingredients">
               ${ingridientsArray}

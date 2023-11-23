@@ -1,11 +1,11 @@
 import { useContext, useState, ChangeEvent, useEffect } from 'react'
 
-import StepCard from '../step-card/step-card.component';
-import CoffeeCard from '../coffee-card/coffee-card.component';
-import { CoffeeContext, ICoffee } from '../../contexts/coffee.context';
-import Button from '../button/button.component';
-import RadioInput from '../../radio-input/radio-input.component';
-import CopyModal from '../copy-modal/copy-modal.component';
+import StepCard from '../step-card/StepCard';
+import CoffeeCard from '../coffee-card/CoffeeCard';
+import { CoffeeContext, ICoffee } from '../../contexts/CoffeeContext';
+import Button from '../button/Button';
+import RadioInput from '../radio-input/RadioInput';
+import CopyModal from '../copy-modal/CopyModal';
 
 // type CoffeeType = "hot" | "iced";
 
@@ -55,7 +55,7 @@ function CoffeeGenerator() {
 
   return (
     <div className='flex flex-col lg:flex-row justify-between py-8'>
-        <div className='flex flex-col gap-4 w-full sm:w-[40%]'>
+        <div className='w-full sm:w-[40%]'>
             <StepCard title='Select your coffee' stepNumber={1}>
                 <div>
                     <RadioInput value="hot" disabled={step!= 1} checked={type ==="hot"} handleChange={handleCoffeeTypeChange} label="Hot coffee" name='coffeeType' />

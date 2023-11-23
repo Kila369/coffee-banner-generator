@@ -1,4 +1,4 @@
-import { ICoffee } from "../../contexts/coffee.context";
+import { ICoffee } from "../../contexts/CoffeeContext";
 
 interface CoffeeCardProps {
     selectedCoffee: ICoffee;
