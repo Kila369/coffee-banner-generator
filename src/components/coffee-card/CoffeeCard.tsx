@@ -1,17 +1,17 @@
-import { ICoffee } from "../../contexts/coffee.context";
+import { ICoffee } from "../../contexts/CoffeeContext";
 
 interface CoffeeCardProps {
     selectedCoffee: ICoffee;
-    width: string | number;
+    width: string;
     hasImage: boolean;
   }
 
 function CoffeeCard({selectedCoffee, width, hasImage}: CoffeeCardProps) {
-  const widthNum = width.split('p')[0];
+  const widthNum = parseInt(width.split('p')[0]);
 
   return (
     <div className='w-1/4 rounded-lg shadow-lg h-[400px] border-darkGray border-2' style={{width: width}} id="coffee-card">
-      <div className='bg-darkGray m-0 rounded-t-lg py-2 px-4 font-bold text-xl text-white'>
+      <div className='px-4 py-2 m-0 text-xl font-bold text-white rounded-t-lg bg-darkGray'>
           <h3>{selectedCoffee.title}</h3>
       </div>
       <div className='p-4 overflow-y-scroll h-full max-h-[350px] flex flex-col justify-between'>
@@ -22,7 +22,7 @@ function CoffeeCard({selectedCoffee, width, hasImage}: CoffeeCardProps) {
               }
           </div>
           <div className={`flex gap-1 ${widthNum < 350 && 'flex-col'}`}>
-              {selectedCoffee.ingredients.map((ingredient) => <span key={ingredient} className='bg-lightBlue px-2 py-1 rounded'>{ingredient}</span>)}
+              {selectedCoffee.ingredients.map((ingredient) => <span key={ingredient} className='px-2 py-1 rounded bg-lightBlue'>{ingredient}</span>)}
           </div>
       </div>
     </div>

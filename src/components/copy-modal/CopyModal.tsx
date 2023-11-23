@@ -1,9 +1,17 @@
+import { ICoffee } from 'contexts/CoffeeContext';
 import close from '../../../public/close.svg';
-import Button from '../button/button.component';
+import Button from '../button/Button';
 
-function CopyModal({selectedCoffee, width,setModal, hasImage}) {
+interface CoffeeModalProps {
+  selectedCoffee: ICoffee;
+  width: string;
+  hasImage: boolean;
+  setModal: (arg: boolean) => void;
+}
 
-    const widthNum = width.split('p')[0];
+function CopyModal({selectedCoffee, width,setModal, hasImage}: CoffeeModalProps) {
+
+    const widthNum = parseInt(width.split('p')[0]);
     // Alternative approach
     // console.log(document.getElementById('coffee-card')?.outerHTML)
 
@@ -17,7 +25,7 @@ function CopyModal({selectedCoffee, width,setModal, hasImage}) {
         <div class="coffee-body">
           <div class="coffee-content">
               <p>${selectedCoffee.description}</p>
-              ${hasImage && '<img src="${selectedCoffee.image}" alt="Coffee Image" class="coffe-image">'}
+              ${hasImage && `<img src="${selectedCoffee.image}" alt="Coffee Image" class="coffe-image">`}
           </div>
           <div class="coffee-ingredients">
               ${ingridientsArray}

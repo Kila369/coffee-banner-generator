@@ -12,7 +12,7 @@ const getHotCoffee = async () => {
     return await response.json();
   } catch (error) {
     console.log(
-      "🚀 ~ file: CoffeeService.js ~ line 15 ~ getHotCoffee ~ error",
+      "🚀 ~ file: CoffeeService.ts ~ line 15 ~ getHotCoffee ~ error",
       error
     );
 
@@ -32,7 +32,7 @@ const getIcedCoffee = async () => {
     return await response.json();
   } catch (error) {
     console.log(
-      "🚀 ~ file: CoffeeService.js ~ line 35 ~ getIcedCoffee ~ error",
+      "🚀 ~ file: CoffeeService.ts ~ line 35 ~ getIcedCoffee ~ error",
       error
     );
 
@@ -40,7 +40,7 @@ const getIcedCoffee = async () => {
   }
 };
 
-export const CoffeeService = {
+export const coffeeService = {
   getHotCoffee,
   getIcedCoffee,
 };

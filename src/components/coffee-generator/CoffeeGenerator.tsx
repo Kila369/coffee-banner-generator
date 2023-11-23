@@ -1,11 +1,12 @@
 import { useContext, useState, ChangeEvent, useEffect } from 'react'
 
-import StepCard from '../step-card/step-card.component';
-import CoffeeCard from '../coffee-card/coffee-card.component';
-import { CoffeeContext, ICoffee } from '../../contexts/coffee.context';
-import Button from '../button/button.component';
-import RadioInput from '../../radio-input/radio-input.component';
-import CopyModal from '../copy-modal/copy-modal.component';
+// Used here absolute imports, ts throw errors although it works on npm run dev
+import StepCard from '@/components/step-card/StepCard';
+import CoffeeCard from '@/components/coffee-card/CoffeeCard';
+import { CoffeeContext, ICoffee } from '../../contexts/CoffeeContext';
+import Button from '../button/Button';
+import RadioInput from '../radio-input/RadioInput';
+import CopyModal from '../copy-modal/CopyModal';
 
 // type CoffeeType = "hot" | "iced";
 
@@ -37,7 +38,7 @@ function CoffeeGenerator() {
     const handleCoffeeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault();
 
-        setSelectedCoffeeId(e.target.value)
+        setSelectedCoffeeId(parseInt(e.target.value))
     } 
 
     const handleCoffeeTypeChange = ( value: string ) => {
@@ -54,8 +55,8 @@ function CoffeeGenerator() {
     }
 
   return (
-    <div className='flex flex-col lg:flex-row justify-between py-8'>
-        <div className='flex flex-col gap-4 w-full sm:w-[40%]'>
+    <div className='flex flex-col justify-between py-8 lg:flex-row'>
+        <div className='w-full sm:w-[40%]'>
             <StepCard title='Select your coffee' stepNumber={1}>
                 <div>
                     <RadioInput value="hot" disabled={step!= 1} checked={type ==="hot"} handleChange={handleCoffeeTypeChange} label="Hot coffee" name='coffeeType' />
@@ -79,7 +80,7 @@ function CoffeeGenerator() {
                     <RadioInput value="100%" disabled={step!= 2} checked={width == "100%"} handleChange={setWidth} label="Full width" name='width' />
                     <RadioInput value={"350px"} disabled={step!= 2} checked={width == "350px"} handleChange={setWidth} label="custom" width={width} name='width' labelType='input' />
                 </div>
-                <div className='flex gap-1 items-center'>
+                <div className='flex items-center gap-1'>
                     <input
                         disabled={step != 2}
                         id="hasImage"
@@ -127,7 +128,7 @@ function CoffeeGenerator() {
                         focus:border-darkBlue focus:shadow-md ${step != 3 ? 'border-lightGray text-textGray' : 'border-darkGray'}`}
                     />
                 </div>
-                <div className='w-full flex justify-between self-end'>
+                <div className='flex self-end justify-between w-full'>
                     <div>
                         <Button onClick={() => handleReset()} disabled={step != 3} inverted>Start Over</Button>
                     </div>
@@ -140,7 +141,7 @@ function CoffeeGenerator() {
         
         <div className='w-full mt-4 sm:mt-0 sm:w-[50%] flex justify-end'>
             <div>
-            <p className='text-darkBlue text-xl self-start mb-4 font-bold'>Preview:</p>
+            <p className='self-start mb-4 text-xl font-bold text-darkBlue'>Preview:</p>
             <CoffeeCard selectedCoffee={selectedCoffee} width={width} hasImage={hasImage} />
             </div>
         </div>
