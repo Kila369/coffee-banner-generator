@@ -6,11 +6,11 @@ interface StepCardProps {
 
 function StepCard({title ,stepNumber, children } : StepCardProps) {
   return (
-    <div className='w-full rounded-lg shadow-lg my-2'>
-        <div className='bg-darkGray m-0 rounded-t-lg py-2 px-4 font-bold text-xl text-white'>
+    <div className='w-full my-2 rounded-lg shadow-lg'>
+        <div className='px-4 py-2 m-0 text-xl font-bold text-white rounded-t-lg bg-darkGray'>
             <h3>{stepNumber}. {title}</h3>
         </div>
-        <div className='px-4 py-4 flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 px-4 py-4'>
             {children}
         </div>
     </div>
