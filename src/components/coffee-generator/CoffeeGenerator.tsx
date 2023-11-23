@@ -1,7 +1,8 @@
 import { useContext, useState, ChangeEvent, useEffect } from 'react'
 
-import StepCard from '../step-card/StepCard';
-import CoffeeCard from '../coffee-card/CoffeeCard';
+// Used here absolute imports, ts throw errors although it works on npm run dev
+import StepCard from '@/components/step-card/StepCard';
+import CoffeeCard from '@/components/coffee-card/CoffeeCard';
 import { CoffeeContext, ICoffee } from '../../contexts/CoffeeContext';
 import Button from '../button/Button';
 import RadioInput from '../radio-input/RadioInput';

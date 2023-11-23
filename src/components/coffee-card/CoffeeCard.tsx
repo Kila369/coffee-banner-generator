@@ -2,12 +2,12 @@ import { ICoffee } from "../../contexts/CoffeeContext";
 
 interface CoffeeCardProps {
     selectedCoffee: ICoffee;
-    width: string | number;
+    width: string;
     hasImage: boolean;
   }
 
 function CoffeeCard({selectedCoffee, width, hasImage}: CoffeeCardProps) {
-  const widthNum = width.split('p')[0];
+  const widthNum = parseInt(width.split('p')[0]);
 
   return (
     <div className='w-1/4 rounded-lg shadow-lg h-[400px] border-darkGray border-2' style={{width: width}} id="coffee-card">
