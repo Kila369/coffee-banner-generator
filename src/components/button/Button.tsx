@@ -9,7 +9,7 @@ interface ButtonProps {
   inverted?: boolean;
 }
 
-const Button = ({ children, type, disabled, onClick, className, inverted=false }: ButtonProps) => {
+const Button = ({ children, type, disabled, onClick, className, inverted = false }: ButtonProps) => {
   return (
     <button
       className={`${disabled ? 'bg-[#a9a9a9] text-white' : inverted ? 'bg-white text-black' : 'bg-darkBlue text-white'} 
