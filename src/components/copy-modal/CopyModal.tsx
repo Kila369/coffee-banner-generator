@@ -1,29 +1,26 @@
-import { ICoffee } from 'contexts/CoffeeContext';
+import { useContext } from 'react';
+
+import { CoffeeContext } from '../../contexts/CoffeeContext';
 import close from '../../../public/close.svg';
 import Button from '../button/Button';
 
-interface CoffeeModalProps {
-  selectedCoffee: ICoffee;
-  width: string;
-  hasImage: boolean;
-  setModal: (arg: boolean) => void;
-}
+function CopyModal({ setModal }: { setModal: (arg: boolean) => void }) {
+  const { selectedCoffee, width, hasImage } = useContext(CoffeeContext);
 
-function CopyModal({ selectedCoffee, width, setModal, hasImage }: CoffeeModalProps) {
   const widthNum = parseInt(width.split('p')[0]);
   // Alternative approach
   // console.log(document.getElementById('coffee-card')?.outerHTML)
 
-  const ingridientsArray = selectedCoffee.ingredients.map(ingredient => `<span class="coffee-ingredient">${ingredient}</span>`).join('');
+  const ingridientsArray = selectedCoffee?.ingredients.map(ingredient => `<span class="coffee-ingredient">${ingredient}</span>`).join('');
 
   const htmlString = `<div class="coffee-container">
         <div class="coffee-header">
-            <h3>${selectedCoffee.title}</h3>
+            <h3>${selectedCoffee?.title}</h3>
         </div>
         <div class="coffee-body">
           <div class="coffee-content">
-              <p>${selectedCoffee.description}</p>
-              ${hasImage && `<img src="${selectedCoffee.image}" alt="Coffee Image" class="coffe-image">`}
+              <p>${selectedCoffee?.description}</p>
+              ${hasImage && `<img src="${selectedCoffee?.image}" alt="Coffee Image" class="coffe-image">`}
           </div>
           <div class="coffee-ingredients">
               ${ingridientsArray}
