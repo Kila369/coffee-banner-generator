@@ -1,6 +1,6 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from 'react';
 
-import { coffeeService } from "../services/coffeeService";
+import { coffeeService } from '../services/coffeeService';
 
 export interface ICoffee {
   title: string;
@@ -22,7 +22,7 @@ export const CoffeeContext = createContext<ICoffeeType>({
   isLoading: true,
 });
 
-export const CoffeeProvider = ({ children }: { children: ReactNode}) => {
+export const CoffeeProvider = ({ children }: { children: ReactNode }) => {
   const [hotCoffee, setHotCoffee] = useState([]);
   const [icedCoffee, setIcedCoffee] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ export const CoffeeProvider = ({ children }: { children: ReactNode}) => {
       const responseIced = await coffeeService.getIcedCoffee();
 
       // They added this morning coffee with nothing so it needs this filtering
-      const newHotCoffee = responseHot.filter((coffee: ICoffee) => coffee.title !== "nothing");
+      const newHotCoffee = responseHot.filter((coffee: ICoffee) => coffee.title !== 'nothing');
 
       setHotCoffee(newHotCoffee);
       setIcedCoffee(responseIced);
@@ -45,7 +45,5 @@ export const CoffeeProvider = ({ children }: { children: ReactNode}) => {
 
   const value = { hotCoffee, icedCoffee, isLoading };
 
-  return (
-    <CoffeeContext.Provider value={value}>{children}</CoffeeContext.Provider>
-  );
+  return <CoffeeContext.Provider value={value}>{children}</CoffeeContext.Provider>;
 };
